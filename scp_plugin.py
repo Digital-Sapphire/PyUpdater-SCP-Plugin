@@ -28,11 +28,8 @@ from jms_utils.paths import ChDir
 from paramiko import SSHClient
 from scp import SCPClient
 
-from pyi_updater.exceptions import UploaderError
-try:
-    from pyi_updater.uploader.common import BaseUploader
-except ImportError:
-    from pyi_updater.uploader import BaseUploader
+from pyupdater.utils.exceptions import UploaderError
+from pyupdater.uploader import BaseUploader
 
 log = logging.getLogger(__name__)
 
@@ -43,10 +40,10 @@ class SCPUploader(BaseUploader):
         super(SCPUploader, self).__init__()
 
     def init(self, **kwargs):
-        self.username = os.environ.get(u'PYIU_SSH_USERNAME')
-        self.password = os.environ.get(u'PYIU_SSH_PASSWORD')
-        self.host = os.environ.get(u'PYIU_SSH_IP_URL')
-        self.remote_dir = os.environ.get(u'PYIU_SSH_REMOTE_PATH')
+        self.username = os.environ.get(u'PYU_SSH_USERNAME')
+        self.password = os.environ.get(u'PYU_SSH_PASSWORD')
+        self.host = os.environ.get(u'PYU_SSH_IP_URL')
+        self.remote_dir = os.environ.get(u'PYU_SSH_REMOTE_PATH')
 
         username = kwargs.get(u'ssh_username')
         if username is not None:

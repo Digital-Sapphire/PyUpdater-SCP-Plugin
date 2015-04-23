@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-SCP-Plugin',
-    version='2.0',
+    version='2.2',
 
     description='SCP Uploader Extension',
 
