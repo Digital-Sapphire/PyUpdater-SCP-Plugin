@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-SCP-Plugin',
-    version='3.0',
+    version='3.0.1',
     description='SCP plugin for PyUpdater',
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
@@ -20,7 +20,7 @@ setup(
         'paramiko',
         'scp',
         ],
-    py_modules=['scp_plugin'],
+    py_modules=['scp_uploader'],
     include_package_data=True,
     entry_points={
         'pyupdater.plugins': [
