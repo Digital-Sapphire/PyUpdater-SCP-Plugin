@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-SCP-Plugin',
-    version='3.0.1',
+    version='3.0.2',
     description='SCP plugin for PyUpdater',
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
