@@ -24,7 +24,6 @@ import logging
 import os
 import sys
 
-from jms_utils.paths import ChDir
 from paramiko import SSHClient
 from scp import SCPClient
 
@@ -36,44 +35,54 @@ log = logging.getLogger(__name__)
 
 class SCPUploader(BaseUploader):
 
-    def __init__(self):
-        super(SCPUploader, self).__init__()
+    name = 'SCP'
+    author = 'Digital Sapphire'
 
-    def init(self, **kwargs):
+    def init_config(self, config):
         self.username = os.environ.get(u'PYU_SSH_USERNAME')
         self.password = os.environ.get(u'PYU_SSH_PASSWORD')
         self.host = os.environ.get(u'PYU_SSH_IP_URL')
         self.remote_dir = os.environ.get(u'PYU_SSH_REMOTE_PATH')
 
-        username = kwargs.get(u'ssh_username')
+        username = config.get(u'ssh_username')
         if username is not None:
             self.username = username
         else:
             if self.username is None:
                 raise UploaderError(u'Username is not set')
-        # ToDo: Figure out support for more then
-        #       one password or keyfile
+
         if self.password is None:
             raise UploaderError(u'Key file or password is not set')
-        host = kwargs.get(u'ssh_host')
+
+        host = config.get(u'ssh_host')
         if host is not None:
             self.host = host
         else:
             if self.host is None:
                 raise UploaderError(u'Host is not set')
-        remote_dir = kwargs.get(u'ssh_remote_dir')
+
+        remote_dir = config.get(u'remote_dir')
         if remote_dir is not None:
             self.remote_dir = remote_dir
         else:
             if self.remote_dir is None:
                 raise UploaderError(u'Remote directory is not set')
-        self.file_list = kwargs.get(u'file_list', [])
-        self._connect()
-
-    # ToDo: Remove in v2.0
-    def _connect(self):
         self.connect()
-    # End ToDo
+
+    def set_config(self, config):
+        username = config.get('username')
+        username = self.get_answer('Enter username', default=username)
+        config['username'] = username
+
+        host = config.get('host')
+        host = self.get_answer('Enter host', default=host)
+        config['host'] = host
+
+        remote_dir = config.get('remote_dir')
+        remote_dir = self.get_answer('Enter remote directory',
+                                     default=remote_dir)
+        config['remote_dir'] = remote_dir
+
 
     def connect(self):
         self.ssh = SSHClient()
@@ -83,21 +92,16 @@ class SCPUploader(BaseUploader):
         self.client = SCPClient(self.ssh.get_transport(),
                                 progress=self.ssh_progress)
 
-    # ToDo: Remove in v2.0
-    def _upload_file(self, filename):
-        self.upload_file(self, filename)
-    # End ToDo
-
     def upload_file(self, filename):
-        with ChDir(self.deploy_dir):
-            try:
-                self.client.put(filename, remote_path=self.remote_dir)
-                os.remove(filename)
-                return True
-            except Exception as e:
-                log.error(e, exc_info=True)
-                self._connect()
-                return False
+        try:
+            self.client.put(filename, remote_path=self.remote_dir)
+            os.remove(filename)
+            return True
+        except Exception as err:
+            log.error('Failed to upload file')
+            log.debug(err, exc_info=True)
+            self._connect()
+            return False
 
     def ssh_progress(self, filename, size, sent):
         percent = float(sent) / size * 100
