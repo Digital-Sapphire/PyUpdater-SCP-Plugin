@@ -10,19 +10,18 @@ PyUpdater upload plugin for scp
 
 ## Configuration
 
-Optional - If set will be used globally. Will be overwritten when you add scp settings during pyupdater init
+Environmental Variables
+##### Note that all env vars are optional but will be used as global options if set. Repo specific options can be set with pyupdater settings --plugin
 
 | Variable      | Meaning        |
 | ------------- |-------------|
-| PYIU_SSH_USERNAME | SSH Username (optional) |
-| PYIU_SSH_PASSWORD | Path to SSH keyfile or password |
-| PYIU_SSH_IP_URL | ip or url address or server (optional) |
-| PYIU_SSH_REMOTE_PATH | Full path to directory on remote machine to store updates (optional) |
+| PYU_SSH_USERNAME | SSH Username |
+| PYU_SSH_PASSWORD | Path to SSH keyfile or password |
+| PYU_SSH_HOST | IP or URL address or server |
+| PYU_SSH_PORT | Port used for ssh |
+| PYU_SSH_REMOTE_PATH | Full path to directory on remote machine to store updates |
 
-## Changes
 
-* v1.1
+Most of the above settings can be overwritten using the command below.
 
-    - Updated
-
-        Compat with PyUpdater 0.19+
+    $ pyupdater settings --plugin plugin-name
