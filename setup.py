@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyUpdater-SCP-Plugin',
-    version='3.0.2',
+    version='3.0.5',
     description='SCP plugin for PyUpdater',
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
@@ -16,7 +16,6 @@ setup(
     platforms=['Any'],
     provides=['pyupdater.plugins',],
     install_requires=[
-        'jms-utils >= 0.6.2',
         'paramiko',
         'scp',
         ],
