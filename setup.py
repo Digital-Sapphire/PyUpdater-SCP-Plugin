@@ -21,7 +21,7 @@ setup(
         'paramiko',
         'scp',
         ],
-    py_modules=['scp_uploader'],
+    py_modules=['scp_uploader', '_version.py'],
     include_package_data=True,
     entry_points={
         'pyupdater.plugins': [
