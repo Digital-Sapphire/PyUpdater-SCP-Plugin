@@ -12,5 +12,11 @@ deploy: clean pypi
 pypi: clean
 	python setup.py sdist bdist_wheel
 
+pypi-test:
+	python setup.py sdist upload -r pypitest
+
 register:
 	python setup.py register -r pypi
+
+register-test:
+	python setup.py register -r pypitest
