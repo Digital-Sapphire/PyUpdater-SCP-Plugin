@@ -1,9 +1,9 @@
 # Changelog
 
-## v3.0.8 - Master
+## v3.0.11 - Master
 ####* This version is not yet released and is under active development.
 
-## v3.0.7 - 2016/07/10
+## v3.0.10 - 2016/07/10
 
 ####Fixed
 
