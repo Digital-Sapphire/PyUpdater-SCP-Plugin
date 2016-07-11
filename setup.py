@@ -1,8 +1,10 @@
 from setuptools import setup
 
+import versioneer
+
 setup(
     name='PyUpdater-SCP-Plugin',
-    version='3.0.5',
+    version=versioneer.get_version(),
     description='SCP plugin for PyUpdater',
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
@@ -27,4 +29,5 @@ setup(
         ],
     },
     zip_safe=False,
+    cmdclass=versioneer.get_cmdclass(),
 )
