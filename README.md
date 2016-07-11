@@ -11,7 +11,7 @@ PyUpdater upload plugin for scp
 ## Configuration
 
 Environmental Variables
-##### Note that all env vars are optional but will be used as global options if set. Repo specific options can be set with pyupdater settings --plugin
+##### Note that all env vars are optional but will be used as global options if set.
 
 | Variable      | Meaning        |
 | ------------- |-------------|
@@ -22,6 +22,6 @@ Environmental Variables
 | PYU_SSH_REMOTE_PATH | Full path to directory on remote machine to store updates |
 
 
-Most of the above settings can be overwritten using the command below.
+The above settings can be overwritten, for a repo, using the command below.
 
     $ pyupdater settings --plugin plugin-name
