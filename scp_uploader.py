@@ -126,7 +126,6 @@ class SCPUploader(BaseUploader):
     def upload_file(self, filename):
         try:
             self.client.put(filename, remote_path=self.remote_dir)
-            os.remove(filename)
             return True
         except Exception as err:
             log.error('Failed to upload file')
