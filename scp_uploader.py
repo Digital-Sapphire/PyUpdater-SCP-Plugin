@@ -43,6 +43,7 @@ class SCPUploader(BaseUploader):
         # Will be overridden with repo specific config
         self.username = os.environ.get(u'PYU_SSH_USERNAME')
         self.password = os.environ.get(u'PYU_SSH_PASSWORD')
+        self.keyfile = os.environ.get(u'PYU_SSH_KEYFILE')
         self.host = os.environ.get(u'PYU_SSH_HOST')
         self.port = os.environ.get(u'PYU_SSH_PORT', 22)
         self.remote_dir = os.environ.get(u'PYU_SSH_REMOTE_PATH')
@@ -57,9 +58,14 @@ class SCPUploader(BaseUploader):
         password = config.get(u'password')
         if password is not None:
             self.password = password
+
+        keyfile = config.get(u'keyfile')
+        if keyfile is not None:
+            self.keyfile = keyfile
+            log.info(self.keyfile)
         else:
-            if self.password is None:
-                raise UploaderError(u'Key file or password is not set')
+            if self.keyfile is None and self.password is None:
+                raise UploaderError(u'Key file and password are not set')
 
         host = config.get(u'host')
         if host is not None:
@@ -88,9 +94,14 @@ class SCPUploader(BaseUploader):
         config['username'] = username
 
         password = config.get('password')
-        password = self.get_answer('Enter password or path to keyfile',
+        password = self.get_answer('Enter password, if needed',
                                    default=password)
         config['password'] = password
+
+        keyfile = config.get('keyfile')
+        keyfile = self.get_answer('Enter path to keyfile, if needed',
+                                   default=keyfile)
+        config['keyfile'] = keyfile
 
         host = config.get('host')
         host = self.get_answer('Enter host', default=host)
@@ -113,10 +124,13 @@ class SCPUploader(BaseUploader):
 
         data = dict(username=self.username, port=int(self.port),
                     timeout=5.0)
-        private_key = os.path.expanduser(self.password)
-        if os.path.exists(private_key):
-            data['key_filename'] = private_key
-        else:
+
+        if self.keyfile:
+            private_key = os.path.expanduser(self.keyfile)
+            if os.path.exists(private_key):
+                data['key_filename'] = private_key
+
+        if self.password:
             data['password'] = self.password
 
         self.ssh.connect(self.host, **data)
