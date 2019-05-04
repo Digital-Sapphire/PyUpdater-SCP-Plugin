@@ -20,7 +20,7 @@ def check_x(x):
 
     def bad_dir(d):
         bad = ['__pycache__', 'build',
-               'dist', 'PyUpdater-SCP-Plugin.egg-info']
+               'dist', 'PyUpdater_SCP_Plugin.egg-info']
         if os.path.basename(d) in bad:
             return True
         return False
