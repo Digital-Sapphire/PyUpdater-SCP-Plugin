@@ -2,10 +2,17 @@ from setuptools import setup
 
 import versioneer
 
+
+with open('README.md', 'r', 'utf-8') as f:
+    readme = f.read()
+
+
 setup(
     name='PyUpdater-SCP-Plugin',
     version=versioneer.get_version(),
     description='SCP plugin for PyUpdater',
+    long_description=readme,
+    long_description_content_type='text/markdown',
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
     url='https://github.com/JMSwag/PyUpdater-SCP-Plugin',
