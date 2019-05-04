@@ -27,8 +27,11 @@ import sys
 import paramiko
 from scp import SCPClient
 
+try:
+    from pyupdater.core.uploader import BaseUploader
+except ImportError:
+    from pyupdater.uploader import BaseUploader
 from pyupdater.utils.exceptions import UploaderError
-from pyupdater.uploader import BaseUploader
 
 log = logging.getLogger(__name__)
 

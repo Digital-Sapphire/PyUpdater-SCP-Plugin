@@ -9,14 +9,17 @@ setup(
     author='JMSwag',
     author_email='johnymoswag@gmail.com',
     url='https://github.com/JMSwag/PyUpdater-SCP-Plugin',
-    classifiers=['Development Status :: 5 - Production/Stable',
-                 'License :: OSI Approved :: MIT License',
-                 'Programming Language :: Python :: 2.7',
-                 'Intended Audience :: Developers',
-                 'Environment :: Console',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Intended Audience :: Developers',
+        'Environment :: Console'
                  ],
     platforms=['Any'],
-    provides=['pyupdater.plugins',],
     install_requires=[
         'paramiko',
         'scp',
@@ -24,7 +27,7 @@ setup(
     py_modules=['scp_uploader', '_version'],
     include_package_data=True,
     entry_points={
-        'pyupdater.plugins': [
+        'pyupdater.plugins.upload': [
             'scp = scp_uploader:SCPUploader',
         ],
     },

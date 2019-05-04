@@ -5,3 +5,5 @@ dist/
 PyUpdater_SCP_Plugin.egg-info/*
 
 *.pyc
+
+.idea
