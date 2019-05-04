@@ -126,7 +126,7 @@ class SCPUploader(BaseUploader):
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         data = dict(username=self.username, port=int(self.port),
-                    timeout=5.0)
+                    timeout=150)
 
         if self.keyfile:
             private_key = os.path.expanduser(self.keyfile)
@@ -138,7 +138,7 @@ class SCPUploader(BaseUploader):
 
         self.ssh.connect(self.host, **data)
         self.client = SCPClient(self.ssh.get_transport(),
-                                progress=self.ssh_progress)
+                                progress=self.ssh_progress, socket_timeout=15)
 
     def upload_file(self, filename):
         try:
