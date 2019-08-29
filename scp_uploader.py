@@ -147,7 +147,7 @@ class SCPUploader(BaseUploader):
         except Exception as err:
             log.error('Failed to upload file')
             log.debug(err, exc_info=True)
-            self._connect()
+            self.connect()
             return False
 
     def ssh_progress(self, filename, size, sent):
